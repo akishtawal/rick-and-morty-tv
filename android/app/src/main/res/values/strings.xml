@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Interdimensional Cable</string>
+    <string name="home_key_service_label">Interdimensional Cable Home button</string>
+    <string name="home_key_service_description">Opens the Interdimensional Cable home screen when you press Home, and brings it back when the stock home screen appears. It only listens for the Home key and the stock launcher\'s windows.</string>
+</resources>

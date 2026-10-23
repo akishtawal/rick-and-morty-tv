@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Screensaver weather from Open-Meteo (D-024). -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature android:name="android.software.leanback" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
+    <!-- API 30 package visibility: list and launch the TV's apps (tech-spec: Package visibility). -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+        </intent>
+    </queries>
+
+    <application
+        android:label="@string/app_name"
+        android:banner="@drawable/app_banner"
+        android:icon="@drawable/app_banner"
+        android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
+        android:allowBackup="false">
+
+        <activity
+            android:name=".home.HomeActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:stateNotNeeded="true"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- CH 099 · Other Apps (R-14). -->
+        <activity
+            android:name=".home.OtherAppsActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
+        <!-- Settings, opened with MENU (R-21). -->
+        <activity
+            android:name=".home.SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
+        <!-- Screensaver (R-17): chosen in TV Settings → Device Preferences → Screen saver. -->
+        <service
+            android:name=".saver.CableDream"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_DREAM_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <!-- Screensaver preview from Settings; exported so it can be tested over adb. -->
+        <activity
+            android:name=".saver.ScreensaverPreviewActivity"
+            android:exported="true"
+            android:screenOrientation="landscape" />
+
+        <!-- Home takeover (D-025): catches the Home key and keeps the stock launcher behind us. -->
+        <service
+            android:name=".home.HomeKeyService"
+            android:label="@string/home_key_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/home_key_service" />
+        </service>
+    </application>
+</manifest>

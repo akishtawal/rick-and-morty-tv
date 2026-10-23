@@ -1,0 +1,16 @@
+# Build output
+build/
+.gradle/
+*.apk
+local.properties
+.idea/
+.DS_Store
+
+# Not redistributable: add these locally (see GUIDE.md section 4)
+android/app/src/main/res/font/get_schwifty.ttf
+android/app/src/main/assets/logos/
+android/app/src/main/assets/stickers/
+android/app/src/main/assets/wallpapers/
+
+# Debloat log from your own TV
+tools/debloat-log.txt
